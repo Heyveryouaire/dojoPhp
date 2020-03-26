@@ -9,7 +9,6 @@
         public $path;
 
         function __construct(){
-            $this->db = new Database();       
         }
 
         // All links 
@@ -20,6 +19,7 @@
 
             // A Activer
         public function showArticles() :void{
+            $this->db = new Database();
             forEach($this->db->getArticle() as $article){
                 $this->content[] = [ "article" => $article];
             }
@@ -28,9 +28,7 @@
         }
 
         public function article(){
-            // $filter = "/([\/a-zA-Z]+){1,}/";
-
-            // $num = preg_replace($filter, "", $_SERVER["REQUEST_URI"]);
+            $this->db = new Database();
             $id = (int)$_GET["id"];
             $article = $this->db->getOneArticle($id);
             $commentaires = $this->db->getCommentaire($article["id"]);
@@ -74,6 +72,7 @@
         }
 
         public function validArticle(){
+            $this->db = new Database();
             if(isset($_SESSION["pseudo"]) && $_SESSION["role"] == "user" || $_SESSION["role"] == "admin"){
                 if(isset($_POST)){
                     $title = sanitize($_POST["titleArticle"]);
@@ -97,7 +96,7 @@
         // Connexion
 
         public function validConnexion() :void{
-
+            $this->db = new Database();
             $pseudo = sanitize($_POST["connexionPseudo"]);
             $password = $_POST["connexionPassword"];
 
@@ -118,6 +117,7 @@
         }
 
         public function validInscription(){
+            $this->db = new Database();
             $pseudo = sanitize($_POST["inscriptionPseudo"]);
             $password = password_hash($_POST["inscriptionPassword"], PASSWORD_DEFAULT);
 
