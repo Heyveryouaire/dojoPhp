@@ -9,7 +9,7 @@
 
         }
 
-        public function getArticle() :array{
+        public function getAllArticle() :array{
             $query = $this->dsn->prepare("SELECT * FROM Article");
             $query->execute();
 

@@ -6,15 +6,15 @@ let anchor = document.querySelectorAll("article a")
 for(let x=0; x<anchor.length; x++){
     anchor[x].addEventListener("click", (e) => {
         e.preventDefault()
-        if(anchor[x].dataset.do == "false"){
-            getCom(e.target.href, anchor[x].parentElement, anchor[x].dataset.val)
-            anchor[x].dataset.do = "true"
-            anchor[x].textContent = "Masquer les commentaires"
+        if(e.target.dataset.do == "false"){
+            getCom(e.target.href, e.target.parentElement, e.target.dataset.val)
+            e.target.dataset.do = "true"
+            e.target.textContent = "Masquer les commentaires"
         }else{
-           let val = document.getElementById(anchor[x].dataset.val)
+           let val = document.getElementById(e.target.dataset.val)
            val.parentElement.removeChild(val)
-            anchor[x].dataset.do = "false"
-            anchor[x].textContent = "Voir les commentaires"
+           e.target.dataset.do = "false"
+           e.target.textContent = "Voir les commentaires"
         }
     })
 }
@@ -38,3 +38,5 @@ function getCom(link, elt, id){
         elt.appendChild(div)
     })
 }
+
+// Faut pas trop appuyé sur voir et masquer les commentaires hein, sinon ca déclenche de drole de chose ..

@@ -12,7 +12,7 @@ class Router
         "inscription" => "/inscription",
         "validInscription" => "/validInscription",
         "admin" => "/admin",
-        "article" => "/article",
+        "restCommentaires" => "/article",
         "ecrire" => "/ecrire",
         "validArticle" => "/validArticle",
         "test" => "/test"

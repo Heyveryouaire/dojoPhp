@@ -16,7 +16,6 @@
         $this->deleteError();
 }?>
 
-
 <?php require $this->path ?>
     
 </main>

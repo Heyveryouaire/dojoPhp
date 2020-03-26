@@ -10,8 +10,7 @@
         public $path;
 
        public function test(){
-            $test = new Article();
-            dd($test->db);
+           dd("coucou");
     
        }
         // All links 
@@ -23,14 +22,18 @@
             // A Activer
         public function showArticles() :void{
             $article = new Article();
-            forEach($article->getArticle() as $article){
+
+            $articles = $article->getAllArticle();
+
+            forEach($articles as $article){
                 $this->content[] = [ "article" => $article];
             }
+
             $this->path = "showArticles";
             $this->render();
         }
 
-        public function article(){
+        public function restCommentaires(){
             $article = new Article();
             $id = (int)$_GET["id"];
             $articles = $article->getOneArticle($id);
