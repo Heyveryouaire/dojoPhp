@@ -10,6 +10,13 @@
     }
     ?>
 
+<?php 
+    if(isset($_SESSION["error"])){
+        echo $_SESSION["error"];
+        $this->deleteError();
+}?>
+
+
 <?php require $this->path ?>
     
 </main>

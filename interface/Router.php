@@ -9,8 +9,12 @@ class Router
         "connexion" => "/connexion",
         "deconnexion" => "/deconnexion",
         "validConnexion" => "/validConnexion",
+        "inscription" => "/inscription",
+        "validInscription" => "/validInscription",
         "admin" => "/admin",
-        "article" => "/article"
+        "article" => "/article",
+        "ecrire" => "/ecrire",
+        "validArticle" => "/validArticle"
     ];
 
     function __construct()

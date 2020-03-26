@@ -13,5 +13,6 @@ function dd($element){
 }
 
 function sanitize($post){
-        return htmlspecialchars($post);
+        $data = trim($post);
+        return htmlspecialchars($data);
 }
