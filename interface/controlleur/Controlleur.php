@@ -1,6 +1,9 @@
 <?php
 
-    require "modele/Database.php";
+    require "modele/AbstractDatabase.php";
+    require "modele/Article.php";
+    require "modele/Identification.php";
+
 
     class Controlleur{
 
@@ -11,6 +14,14 @@
         function __construct(){
         }
 
+       public function test(){
+            $test = new Article();
+            $article = $test->getArticle();
+            dd($article);
+            
+          
+    
+       }
         // All links 
         public function accueil() :void{
             $this->path = "accueil";
@@ -19,7 +30,7 @@
 
             // A Activer
         public function showArticles() :void{
-            $this->db = new Database();
+            $this->db = new Article();
             forEach($this->db->getArticle() as $article){
                 $this->content[] = [ "article" => $article];
             }
@@ -28,7 +39,7 @@
         }
 
         public function article(){
-            $this->db = new Database();
+            $this->db = new Article();
             $id = (int)$_GET["id"];
             $article = $this->db->getOneArticle($id);
             $commentaires = $this->db->getCommentaire($article["id"]);
@@ -72,7 +83,7 @@
         }
 
         public function validArticle(){
-            $this->db = new Database();
+            $this->db = new Article();
             if(isset($_SESSION["pseudo"]) && $_SESSION["role"] == "user" || $_SESSION["role"] == "admin"){
                 if(isset($_POST)){
                     $title = sanitize($_POST["titleArticle"]);
@@ -96,7 +107,7 @@
         // Connexion
 
         public function validConnexion() :void{
-            $this->db = new Database();
+            $this->db = new Identification();
             $pseudo = sanitize($_POST["connexionPseudo"]);
             $password = $_POST["connexionPassword"];
 
@@ -117,7 +128,7 @@
         }
 
         public function validInscription(){
-            $this->db = new Database();
+            $this->db = new Identification();
             $pseudo = sanitize($_POST["inscriptionPseudo"]);
             $password = password_hash($_POST["inscriptionPassword"], PASSWORD_DEFAULT);
 

@@ -14,7 +14,8 @@ class Router
         "admin" => "/admin",
         "article" => "/article",
         "ecrire" => "/ecrire",
-        "validArticle" => "/validArticle"
+        "validArticle" => "/validArticle",
+        "test" => "/test"
     ];
 
     function __construct()

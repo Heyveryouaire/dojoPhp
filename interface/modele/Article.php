@@ -1,17 +1,11 @@
 <?php
 
-    class Database{
+    class Article extends AbstractDatabase{
 
-        private $dsn;
+        protected $dsn;
 
         function __construct(){
-
-            try{
-                $this->dsn = new PDO("mysql:host=localhost;dbname=dojoPhp;charset=utf8", USER, PASSWORD);
-            }catch(PDOException $e){
-                echo "Impossible " . $e;
-                die();
-            } 
+            parent::__construct();
 
         }
 
@@ -44,15 +38,6 @@
             return $response;
         }
 
-        public function getUser(string $pseudo) {
-            $query = $this->dsn->prepare("SELECT * FROM Utilisateur WHERE pseudo = :pseudo");
-            $query->execute([
-                ":pseudo" => $pseudo
-            ]);
-
-            return $query->fetch(PDO::FETCH_ASSOC);
-        }
-
         public function addArticle(string $titre, string $content){
             $query = $this->dsn->prepare("INSERT INTO Article (titre, content, date) VALUES (:titre, :content, :date)");
 
@@ -63,18 +48,6 @@
             // géré le statut par la suite
 
             $query->execute();
-        }
-
-        public function addUser(string $pseudo, string $password, string $email ="adresse.email@bidon.fr", string $role = "user"){
-            $query = $this->dsn->prepare("INSERT INTO Utilisateur (pseudo, email, password, role) VALUES (:pseudo, :email, :password, :role)");
-        
-            $query->bindParam(':pseudo', $pseudo);
-            $query->bindParam(':email', $email);
-            $query->bindParam(':password', $password);
-            $query->bindParam(':role', $role);
-
-            $query->execute();
-
         }
 
 
