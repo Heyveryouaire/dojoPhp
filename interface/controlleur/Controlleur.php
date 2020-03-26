@@ -4,22 +4,14 @@
     require "modele/Article.php";
     require "modele/Identification.php";
 
-
     class Controlleur{
 
-        private $db;
         public $content = [];
         public $path;
 
-        function __construct(){
-        }
-
        public function test(){
             $test = new Article();
-            $article = $test->getArticle();
-            dd($article);
-            
-          
+            dd($test->db);
     
        }
         // All links 
@@ -30,8 +22,8 @@
 
             // A Activer
         public function showArticles() :void{
-            $this->db = new Article();
-            forEach($this->db->getArticle() as $article){
+            $article = new Article();
+            forEach($article->getArticle() as $article){
                 $this->content[] = [ "article" => $article];
             }
             $this->path = "showArticles";
@@ -39,13 +31,13 @@
         }
 
         public function article(){
-            $this->db = new Article();
+            $article = new Article();
             $id = (int)$_GET["id"];
-            $article = $this->db->getOneArticle($id);
-            $commentaires = $this->db->getCommentaire($article["id"]);
+            $articles = $article->getOneArticle($id);
+            $commentaires = $article->getCommentaire($articles["id"]);
 
             $this->content[] = [
-                "article" => $article,
+                "article" => $articles,
                 "commentaires" => $commentaires
             ];
 
@@ -83,13 +75,13 @@
         }
 
         public function validArticle(){
-            $this->db = new Article();
+            $article = new Article();
             if(isset($_SESSION["pseudo"]) && $_SESSION["role"] == "user" || $_SESSION["role"] == "admin"){
                 if(isset($_POST)){
                     $title = sanitize($_POST["titleArticle"]);
                     $content = sanitize($_POST["contentArticle"]);
 
-                    $this->db->addArticle($title, $content);
+                    $article->addArticle($title, $content);
                     $this->redirectToRoute("showarticles");
                 }
             }else{
@@ -107,11 +99,11 @@
         // Connexion
 
         public function validConnexion() :void{
-            $this->db = new Identification();
+            $user = new Identification();
             $pseudo = sanitize($_POST["connexionPseudo"]);
             $password = $_POST["connexionPassword"];
 
-            $userDb = $this->db->getUser($pseudo);
+            $userDb = $user->getUser($pseudo);
 
             if($userDb){
                 if(password_verify($password, $userDb["password"])){
@@ -128,15 +120,15 @@
         }
 
         public function validInscription(){
-            $this->db = new Identification();
+            $user = new Identification();
             $pseudo = sanitize($_POST["inscriptionPseudo"]);
             $password = password_hash($_POST["inscriptionPassword"], PASSWORD_DEFAULT);
 
-            $pseudoDb = $this->db->getUser($pseudo);
+            $pseudoDb = $user->getUser($pseudo);
  
             if(empty($pseudoDb)){
                
-                $this->db->addUser($pseudo, $password);
+                $user->addUser($pseudo, $password);
                 $this->setError("Votre compte à bien été créer, vous pouvez à présent vous connectez");
                 $this->path = "connexion";
                 $this->render();
