@@ -3,9 +3,13 @@
 spl_autoload_register("autoload");
 
 function autoload($class){
-        require_once "controlleur/" . $class . ".php";
-}
 
+        foreach(FOLDERS as $folder){
+                if(file_exists($folder . $class . ".php")){
+                        require_once $folder . $class . ".php";
+                }
+        }
+}
 
 function dd($element){
         var_dump($element);

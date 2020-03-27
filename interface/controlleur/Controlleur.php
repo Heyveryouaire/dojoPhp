@@ -1,11 +1,5 @@
 <?php
 
-    require "modele/AbstractDatabase.php";
-    require "modele/Article.php";
-    require "modele/Identification.php";
-
-    require "AbstractControlleur.php";
-
     class Controlleur extends AbstractControlleur{
 
         public $content = [];
@@ -24,7 +18,6 @@
             $article = new Article();
 
             $articles = $article->getAllArticle();
-
             forEach($articles as $article){
                 $this->content[] = [ "article" => $article];
             }
@@ -59,8 +52,7 @@
         public function admin() :void{
             if(isset($_SESSION["role"])){
                 if($_SESSION["role"] == "admin"){
-                    $this->path = "admin";
-                    $this->render();
+                    $this->render("admin");
                 }else{
                     $this->redirectToRoute("");
                 }
