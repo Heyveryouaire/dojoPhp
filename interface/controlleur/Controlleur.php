@@ -4,19 +4,19 @@
     require "modele/Article.php";
     require "modele/Identification.php";
 
-    class Controlleur{
+    require "AbstractControlleur.php";
+
+    class Controlleur extends AbstractControlleur{
 
         public $content = [];
-        public $path;
 
-       public function test(){
-           dd("coucou");
+        public function test(){ 
+            $this->render();
     
        }
         // All links 
         public function accueil() :void{
-            $this->path = "accueil";
-            $this->render();
+            $this->render("accueil");
         }
 
             // A Activer
@@ -29,8 +29,7 @@
                 $this->content[] = [ "article" => $article];
             }
 
-            $this->path = "showArticles";
-            $this->render();
+            $this->render("showArticles");
         }
 
         public function restCommentaires(){
@@ -49,8 +48,7 @@
         }
 
         public function connexion() :void{
-            $this->path = "connexion";
-            $this->render();
+            $this->render("connexion");
         }
 
         public function deconnexion() :void{
@@ -72,9 +70,7 @@
         }
 
         public function ecrire(){
-            
-            $this->path = "ecrire";
-            $this->render();
+            $this->render("ecrire");
         }
 
         public function validArticle(){
@@ -89,14 +85,12 @@
                 }
             }else{
                 $this->setError("Il faut etre connecter pour poster un article");
-                $this->path = "accueil";
-                $this->render();
+                $this->render("accueil");
             }
         }
 
         public function inscription(){
-            $this->path = "inscription";
-            $this->render();
+            $this->render("inscription");
         }
 
         // Connexion
@@ -126,24 +120,16 @@
             $user = new Identification();
             $pseudo = sanitize($_POST["inscriptionPseudo"]);
             $password = password_hash($_POST["inscriptionPassword"], PASSWORD_DEFAULT);
-
             $pseudoDb = $user->getUser($pseudo);
  
             if(empty($pseudoDb)){
-               
                 $user->addUser($pseudo, $password);
                 $this->setError("Votre compte à bien été créer, vous pouvez à présent vous connectez");
-                $this->path = "connexion";
-                $this->render();
-
-
+                $this->render("connexion");
             }else{
                 $this->setError("Le nom d'utilisateur existe déjà");
                 $this->redirectToRoute("inscription");
-
             }
-
-
         }
 
         private function connectUser(array $user) :void{
@@ -159,16 +145,6 @@
 
         private function deleteError() :void{
             $_SESSION["error"] = "";
-        }
-        
-        // Render
-        private function render() :void{
-            $this->path = "vue/pages/" . $this->path . ".php";
-            require "vue/base.php";
-        }
-
-        private function redirectToRoute($route) :void{
-            header("Location:/dojoPhp/interface/" . $route);
         }
        
     }
