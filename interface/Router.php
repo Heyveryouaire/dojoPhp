@@ -18,24 +18,29 @@ class Router
         "test" => "/test"
     ];
 
+    private $classes = [
+        "Controlleur",
+        "User"
+    ];
+
+    private $method;
+    private $link;
+
     function __construct()
     {
-        $link = preg_replace(DIR, "", $_SERVER["REQUEST_URI"]);
-
-        $link = preg_replace("/[?]?id=[0-9]*/", "", $link);
-        $this->getControlleur($link);
+        $this->link = preg_replace(DIR, "", $_SERVER["REQUEST_URI"]);
+        $this->link = preg_replace("/[?]?id=[0-9]*/", "", $this->link);
+        $this->getControlleur();
     }
 
-    function getControlleur($link)
+    function getControlleur()
     {
-        $controller = new Controlleur();
-
-        if (array_search($link, $this->REALINK)) {
-            $path = array_search($link, $this->REALINK);
-            $controller->$path();
-        } else {
-            echo "impossible de trouver ce lien";
-            dd($_SERVER);
+        $this->method = array_search($this->link, $this->REALINK);
+        foreach($this->classes as $class){
+            if(method_exists($class, $this->method)){
+                $controller = new $class;
+                $controller->{$this->method}();
+            }
         }
     }
 }
