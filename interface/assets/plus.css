@@ -1,0 +1,70 @@
+.button{
+    box-shadow: 0px 0px 1px 1px #F2F1F1;
+    border-radius: 2px;
+    border: 0;
+    padding: 10px;
+    font-size: 1rem;
+    background: #252525;
+    color: #F2F1F1;
+    transition: all 0.5s;
+}
+
+.inverted{
+    background: #F2F1F1;
+    color: #252525;
+}
+
+.button:hover{
+    background: #F2F1F1;
+    box-shadow: 0px 0px 1px 1px #252525;
+    color: #252525;
+}
+
+.inverted:hover{
+    background: #252525;
+    color: #F2F1F1;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
+}
+.form input, textarea, button{
+    
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.form label{
+    font-size: 1.1rem;
+    text-align: center;
+    text-shadow: 0px 0px 1px black;
+}
+
+textarea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    font-family: 'Crimson Text', serif;
+    font-size: 1.2rem;
+    resize: none;
+}
+textarea:focus{
+    box-shadow: 0px 0px 1px 1px #252525;
+}
+
+input{
+    border-radius: 2px;
+    border: 0;
+    padding: 10px;
+    font-size: 1rem;
+    background-color: white;
+    color: #252525;
+}
+input:focus{
+    box-shadow: 0px 0px 1px 1px #252525;
+
+}

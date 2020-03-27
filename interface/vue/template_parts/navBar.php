@@ -9,11 +9,11 @@
     <?php
         if(isset($_SESSION["pseudo"])){ ?>
 
-            <a href="deconnexion"><button>Se déconnecter</button></a>
+            <a href="deconnexion"><button class="button inverted">Se déconnecter</button></a>
     <?php
         }else{ ?>
-    <a href="connexion"><button>Se connecter</button></a>
-    <a href="inscription"><button>S'inscrire</button></a>
+    <a href="connexion"><button class="button inverted">Se connecter</button></a>
+    <a href="inscription"><button class="button inverted">S'inscrire</button></a>
     <?php  
         }
     ?>

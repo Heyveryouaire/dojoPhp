@@ -1,4 +1,14 @@
-<form method="POST" action="validArticle">
+<style>
+
+
+
+
+
+
+</style>
+
+
+<form class="form" method="POST" action="validArticle">
     <fieldset>
         <legend>
             Créer un nouvel article
@@ -10,11 +20,12 @@
                 $this->deleteError();
             }
         ?>
-
-        <input name="titleArticle" type="text" placeholder="Entrer votre nom d'utilisateur">
-            <textarea name="contentArticle" placeholder="Ecrivez votre article">
-
-            </textarea>
-        <button type="submit">Ecrire !</button>
+        <div class="form">
+            <label for="titleArticle">Titre de l'article</label>
+            <input name="titleArticle" id="titleArticle" type="text" placeholder="Entrer votre nom d'utilisateur">
+            <label for="contentArticle">Contenu de l'article</label>
+            <textarea name="contentArticle" id="contentArticle" placeholder="Ecrivez votre article"></textarea>
+            <button type="submit" class="button">Envoyer</button>
+        </div>
     </fieldset>
 </form>
