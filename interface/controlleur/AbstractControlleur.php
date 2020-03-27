@@ -13,5 +13,12 @@
         protected function redirectToRoute(string $route) :void{
             header("Location:/dojoPhp/interface/" . $route);
         }
+        protected function setError(string $error) :void{
+            $_SESSION["error"] = $error;
+        }
+
+        protected function deleteError() :void{
+            $_SESSION["error"] = "";
+        }
 
     }

@@ -19,8 +19,9 @@ class Router
     ];
 
     private $classes = [
-        "Controlleur",
-        "User"
+        "MainControlleur",
+        "UserControlleur",
+        "ArticlesControlleur"
     ];
 
     private $method;
@@ -36,11 +37,19 @@ class Router
     function getControlleur()
     {
         $this->method = array_search($this->link, $this->REALINK);
+        
+        $valid_path = false;
         foreach($this->classes as $class){
             if(method_exists($class, $this->method)){
                 $controller = new $class;
                 $controller->{$this->method}();
+                $valid_path = true;
             }
+        }
+
+        if($valid_path == false){
+           $controller = new MainControlleur();
+           $controller->notfound();
         }
     }
 }
